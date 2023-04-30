@@ -6,7 +6,7 @@ Sva prabila mozete naci na [Lutrija BiH Pravila](https://www.lutrijabih.ba/igre/
 
 
 ## Izrada
-Molim vas da svi izaberete po jedan Issue i uradite ga. **Kod opisati komentarima.**
+Molim vas da svi izaberete po jedan Issue i uradite ga. **Kod opisati komentarima!!**
 
 ## Nejasnoce
 Bilo kakva pitanja postavite u sam komentar Issue-a
