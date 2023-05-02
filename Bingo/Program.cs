@@ -22,7 +22,13 @@
             int zeljeniBrojListica = Convert.ToInt32(Console.ReadLine());
 
             // Generisati listice
-            List<List<int>> listici = BingoUtil.GenerisiListice(zeljeniBrojListica);
+            
+            for (int i = 1; i <= zeljeniBrojListica; i++)
+        {
+            Console.WriteLine("Listić {0}", i);
+        }
+
+        Console.ReadLine();
 
             // Spremiti listice u fajl
             BingoUtil.SpremiListice(listici, "listici.txt");
