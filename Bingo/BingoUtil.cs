@@ -14,6 +14,10 @@ namespace Bingo
             List<List<int>> listici = new List<List<int>>();
             // generisati metodom od kere sa for petljom
 
+            for (int i = 0; i < zeljeniBrojListica; i++)
+            {
+                listici.Add(GenerisiKombinacijuZaListic());
+            }
             return listici;
         }
 
