@@ -12,6 +12,7 @@ namespace Bingo
         public static List<List<int>> GenerisiListice(int zeljeniBrojListica)
         {
             List<List<int>> listici = new List<List<int>>();
+            // generisati metodom od kere sa for petljom
 
             return listici;
         }
