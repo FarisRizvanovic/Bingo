@@ -13,6 +13,11 @@ namespace Bingo
         {
             List<List<int>> listici = new List<List<int>>();
 
+            for (int i = 0; i < zeljeniBrojListica; i++)
+            {
+                listici.Add(GenerisiKombinacijuZaListic());
+            }
+
             return listici;
         }
 
@@ -22,6 +27,16 @@ namespace Bingo
         public static List<int> GenerisiKombinacijuZaListic()
         {
             List<int> kombinacija = new List<int>();
+            Random random = new Random();
+            while (kombinacija.Count < 6)
+            {
+                int randomNumber = random.Next(40);
+
+                if (!kombinacija.Contains(randomNumber))
+                {
+                    kombinacija.Add(randomNumber);
+                }
+            }
 
             return kombinacija;
         }
@@ -31,18 +46,31 @@ namespace Bingo
          */
         public static void SpremiListice(List<List<int>> listici, string nazivFajlaSaExtenzijom)
         {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(nazivFajlaSaExtenzijom))
+                {
+                    for (int i = 0; i < listici.Count; i++)
+                    {
+                        writer.Write($"Listic ({i + 1}): ");
 
-        }
-
-        /**
-         * Generisane listice koji su spremljeni u .txt fajlu procitati
-         */
-        public static List<List<int>> ProcitajListice()
-        {
-            List<List<int>> listici = new List<List<int>>();
-
-
-            return listici;
+                        for (int j = 0; j < listici[i].Count; j++)
+                        {
+                            writer.Write(listici[i][j]);
+                            if (j != listici[i].Count - 1)
+                            {
+                                writer.Write(", ");
+                            }
+                        }
+                        writer.WriteLine();
+                        writer.WriteLine();
+                    }
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Desila se greska!");
+            }
         }
 
         /**
@@ -51,9 +79,29 @@ namespace Bingo
          * Spremanje izvjestaja uraditi sa SpremanjeIzvjestaja()
          * Ispis izvrsti sa Ispis()
          */
-        public static void GenerisanjeIzvjestaja()
+        public static void GenerisanjeIzvjestaja(List<List<int>> listici, List<int> pobjednickaKobinacija)
         {
+            Dictionary<string, int> brojPogodenihKombinacija = new Dictionary<string, int> {
+            {"6", 0}, {"5", 0}, {"4", 0}, {"3", 0}};
 
+            foreach (List<int> listic in listici)
+            {
+                int brojPogodataka = 0;
+                foreach (int broj in listic)
+                {
+                    if (pobjednickaKobinacija.Contains(broj))
+                    {
+                        brojPogodataka++;
+                    }
+                }
+                if (brojPogodataka > 2)
+                {
+                    brojPogodenihKombinacija[brojPogodataka.ToString()] =
+                        brojPogodenihKombinacija[brojPogodataka.ToString()] + 1;
+                }
+            }
+
+            SpremanjeIzvjestaja(brojPogodenihKombinacija, "izvjestaj.txt");
         }
 
         /**
@@ -61,15 +109,25 @@ namespace Bingo
          */
         static void Ispis(string stringZaIspisati)
         {
-
+            Console.WriteLine(stringZaIspisati);
         }
 
         /**
          * Spremiti izvjestaje
          */
-        static void SpremanjeIzvjestaja(string izvjestaj)
+        static void SpremanjeIzvjestaja(Dictionary<string, int> brojPogdenihKombinacija, string nazivFajlaSaExtenzijom)
         {
+            string izvjestaj = $"Sestice: {brojPogdenihKombinacija["6"]}\n" +
+                $"Petice: {brojPogdenihKombinacija["5"]}\n" +
+                $"Cetvroke: {brojPogdenihKombinacija["4"]}\n" +
+                $"Trice: {brojPogdenihKombinacija["3"]}\n";
 
+            using (StreamWriter writer = new StreamWriter(nazivFajlaSaExtenzijom))
+            {
+                writer.Write(izvjestaj);
+            }
+
+            Ispis(izvjestaj);
         }
     }
 }
